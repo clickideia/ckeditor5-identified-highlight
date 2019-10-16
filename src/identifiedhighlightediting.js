@@ -36,8 +36,8 @@ export default class IdentifiedHighlightEditing extends Plugin {
 		const definition = {
 			model: 'identifiedHighlight',
 			view: {
-				name: 'span',
-				classes: 'mark'
+				name: 'mark',
+				classes: 'marker'
 			}
 		};
 
