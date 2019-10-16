@@ -1,4 +1,5 @@
 import Plugin from '@ckeditor/ckeditor5-core/src/plugin';
+import IdentifiedHighlightCommand from './identifiedhighlightcommand';
 
 export default class IdentifiedHighlightEditing extends Plugin {
 	static get pluginName() {
@@ -12,6 +13,7 @@ export default class IdentifiedHighlightEditing extends Plugin {
 	init() {
 		this._defineSchema();
 		this._defineConverters();
+		this._addComand();
 	}
 
 	_defineSchema() {
@@ -32,13 +34,20 @@ export default class IdentifiedHighlightEditing extends Plugin {
 
 	_buildDefinition( options ) {
 		const definition = {
-			model: {
-				key: 'identifiedHighlight',
-				values: []
-			},
-			view: {}
+			model: 'identifiedHighlight',
+			view: {
+				name: 'span',
+				'data-highlight-id': 'test',
+				class: 'mark'
+			}
 		};
 
 		return definition;
+	}
+
+	_addComand() {
+		const editor = this.editor;
+
+		editor.commands.add( 'identifiedHighlight', new IdentifiedHighlightCommand( editor ) );
 	}
 }
