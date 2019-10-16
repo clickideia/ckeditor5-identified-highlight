@@ -7,4 +7,8 @@ export default class IdentifiedHighlight extends Plugin {
 	static get requires() {
 		return [IdentifiedHighlightEditing, IdentifiedHighlightUI];
 	}
+
+	static get pluginName() {
+		return "IdentifiedHighlight";
+	}
 }
