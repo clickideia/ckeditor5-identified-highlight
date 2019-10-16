@@ -17,9 +17,9 @@ export default class IdentifiedHighlightCommand extends Command {
 
 		model.change( writer => {
 			const ranges = model.schema.getValidRanges( selection.getRanges(), 'identifiedHighlight' );
-
+			const id = options.generateId();
 			for ( const range of ranges ) {
-				writer.setAttribute( 'identifiedHighlight', options.generateId(), range );
+				writer.setAttribute( 'identifiedHighlight', id, range );
 			}
 		} );
 	}
