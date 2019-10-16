@@ -1,0 +1,7 @@
+:root {
+	--ck-identifiedhighlight-marker: #72cdfd;
+}
+
+.marker {
+	background-color: var(--ck-identifiedhighlight-marker);
+}

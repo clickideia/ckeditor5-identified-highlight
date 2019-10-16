@@ -1,14 +1,14 @@
-import Plugin from "@ckeditor/ckeditor5-core/src/plugin";
+import Plugin from '@ckeditor/ckeditor5-core/src/plugin';
 
-import IdentifiedHighlightEditing from "./identifiedhighlightediting";
-import IdentifiedHighlightUI from "./identifiedhighlightui";
+import IdentifiedHighlightEditing from './identifiedhighlightediting';
+import IdentifiedHighlightUI from './identifiedhighlightui';
 
 export default class IdentifiedHighlight extends Plugin {
 	static get requires() {
-		return [IdentifiedHighlightEditing, IdentifiedHighlightUI];
+		return [ IdentifiedHighlightEditing, IdentifiedHighlightUI ];
 	}
 
 	static get pluginName() {
-		return "IdentifiedHighlight";
+		return 'IdentifiedHighlight';
 	}
 }

@@ -1,5 +1,47 @@
-import Plugin from "@ckeditor/ckeditor5-core/src/plugin";
+import Plugin from '@ckeditor/ckeditor5-core/src/plugin';
+
+import ButtonView from '@ckeditor/ckeditor5-ui/src/button/buttonview';
+
+import commentIcon from './../theme/icons/comment.svg';
+
+import './../theme/identifiedhighlight.css';
 
 export default class IdentifiedHighlightUI extends Plugin {
-	init() {}
+	static get pluginName() {
+		return 'IdentifiedHighlightUI';
+	}
+
+	init() {
+		const options = this.editor.config.get( 'identifiedHighlight.options' );
+
+		this._addButton( options );
+	}
+
+	_addButton( options ) {
+		const editor = this.editor;
+		const command = this.editor.commands.get( 'identifiedHighlight' );
+		const t = editor.t;
+
+		editor.ui.componentFactory.add( 'identifiedHighlight', locale => {
+			const buttonView = new ButtonView( locale );
+
+			buttonView.set( {
+				label: t( options.label ),
+				icon: options.withText ? undefined : commentIcon,
+				tooltip: !options.withText,
+				withText: options.withText
+			} );
+
+			buttonView.on( 'execute', () => {
+				editor.execute( 'identifiedHighlight' );
+				editor.editing.view.focus();
+			} );
+
+			buttonView.bind( 'isEnabled' ).to( command, 'isEnabled' );
+			buttonView.bind( 'isOn' ).to( command, 'value', value => value === true );
+			buttonView.isToggleable = true;
+
+			return buttonView;
+		} );
+	}
 }
