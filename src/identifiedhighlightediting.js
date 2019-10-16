@@ -37,7 +37,7 @@ export default class IdentifiedHighlightEditing extends Plugin {
 			model: 'identifiedHighlight',
 			view: {
 				name: 'span',
-				class: 'mark'
+				classes: 'mark'
 			}
 		};
 
