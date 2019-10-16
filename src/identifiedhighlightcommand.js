@@ -9,15 +9,17 @@ export default class IdentifiedHighlightCommand extends Command {
 		this.isEnabled = model.schema.checkAttributeInSelection( selection, 'identifiedHighlight' );
 	}
 
-	execute( options ) {
-		const model = this.editor.model;
+	execute( ) {
+		const editor = this.editor;
+		const model = editor.model;
 		const selection = model.document.selection;
+		const options = editor.config.get( 'identifiedHighlight.options' );
 
 		model.change( writer => {
 			const ranges = model.schema.getValidRanges( selection.getRanges(), 'identifiedHighlight' );
 
 			for ( const range of ranges ) {
-				writer.setAttribute( 'identifiedHighlight', true, range );
+				writer.setAttribute( 'identifiedHighlight', options.generateId(), range );
 			}
 		} );
 	}
