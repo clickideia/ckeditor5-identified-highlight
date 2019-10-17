@@ -4,7 +4,7 @@ export function isIdentifiedHighlightElement( node ) {
 
 export function createIdentifiedHighlightElement( id, writer ) {
 	const identifiedHighlightElement = writer.createAttributeElement( 'mark', {
-		class: 'mark',
+		class: 'marker',
 		id
 	}, { id: `highlightId:${ id }`, priority: 5 } );
 	writer.setCustomProperty( 'identifiedHighlight', id, identifiedHighlightElement );
