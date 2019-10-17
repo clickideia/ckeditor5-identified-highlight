@@ -7,11 +7,8 @@ export default class IdentifiedHighlightEditing extends Plugin {
 		return 'IdentifiedHighlightEditing';
 	}
 
-	constructor( editor ) {
-		super( editor );
-	}
-
 	init() {
+		console.log( 'Workspace works fine' );
 		this._defineSchema();
 		this._defineConverters();
 		this._addComand();
@@ -28,32 +25,40 @@ export default class IdentifiedHighlightEditing extends Plugin {
 		const editor = this.editor;
 		const conversion = editor.conversion;
 
-		conversion.for( 'dataDowncast' )
-			.attributeToElement( { model: 'identifiedHighlight', view: createIdentifiedHighlightElement } );
-
-		conversion.for( 'editingDowncast' )
-			.attributeToElement( { model: 'identifiedHighlight', view: ( id, writer ) => {
-				return createIdentifiedHighlightElement( id, writer );
-			} } );
-
-		conversion.for( 'upcast' )
-			.elementToAttribute( {
-				view: {
-					name: 'marker',
-					attributes: {
-						'data-highlight-id': true
-					}
-				},
-				model: {
-					key: 'identifiedHighlight',
-					value: viewElement => viewElement.getAttribute( 'id' )
-				}
+		conversion
+			.for( 'dataDowncast' )
+			.attributeToElement( {
+				model: 'identifiedHighlight',
+				view: createIdentifiedHighlightElement
 			} );
+
+		conversion.for( 'editingDowncast' ).attributeToElement( {
+			model: 'identifiedHighlight',
+			view: ( id, writer ) => {
+				return createIdentifiedHighlightElement( id, writer );
+			}
+		} );
+
+		conversion.for( 'upcast' ).elementToAttribute( {
+			view: {
+				name: 'marker',
+				attributes: {
+					'data-highlight-id': true
+				}
+			},
+			model: {
+				key: 'identifiedHighlight',
+				value: viewElement => viewElement.getAttribute( 'id' )
+			}
+		} );
 	}
 
 	_addComand() {
 		const editor = this.editor;
 
-		editor.commands.add( 'identifiedHighlight', new IdentifiedHighlightCommand( editor ) );
+		editor.commands.add(
+			'identifiedHighlight',
+			new IdentifiedHighlightCommand( editor )
+		);
 	}
 }
