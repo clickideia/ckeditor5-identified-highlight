@@ -38,7 +38,7 @@ export default class IdentifiedHighlightUI extends Plugin {
 			} );
 
 			buttonView.bind( 'isEnabled' ).to( command, 'isEnabled' );
-			buttonView.bind( 'isOn' ).to( command, 'value', value => value === true );
+			buttonView.bind( 'isOn' ).to( command, 'value', value => !!value );
 			buttonView.isToggleable = true;
 
 			return buttonView;

@@ -27,10 +27,6 @@ export default class IdentifiedHighlightEditing extends Plugin {
 	_defineConverters() {
 		const editor = this.editor;
 		const conversion = editor.conversion;
-		// const options = editor.config.get( 'identifiedHighlight.options' );
-
-		// Set-up the two-way conversion.
-		// conversion.attributeToElement( this._buildDefinition( options ) );
 
 		conversion.for( 'dataDowncast' )
 			.attributeToElement( { model: 'identifiedHighlight', view: createIdentifiedHighlightElement } );
@@ -45,7 +41,7 @@ export default class IdentifiedHighlightEditing extends Plugin {
 				view: {
 					name: 'marker',
 					attributes: {
-						id: true
+						'data-highlight-id': true
 					}
 				},
 				model: {
@@ -54,18 +50,6 @@ export default class IdentifiedHighlightEditing extends Plugin {
 				}
 			} );
 	}
-
-	// _buildDefinition( options ) {
-	// 	const definition = {
-	// 		model: 'identifiedHighlight',
-	// 		view: {
-	// 			name: 'mark',
-	// 			classes: 'marker'
-	// 		}
-	// 	};
-
-	// 	return definition;
-	// }
 
 	_addComand() {
 		const editor = this.editor;
