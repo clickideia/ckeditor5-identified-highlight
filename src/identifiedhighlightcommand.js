@@ -26,11 +26,23 @@ export default class IdentifiedHighlightCommand extends Command {
 			);
 			const id = options.generateId();
 
-			// if(selection.isCollapsed) {
-			// 	if(selection.hasAttribute) {
+			if (selection.isCollapsed) {
+				const position = selection.getFirstPosition();
 
-			// 	}
-			// }
+				if (selection.hasAttribute('identifiedHighlight')) {
+					// const isSameHighlight = value => {
+					// 	return value.item.hasAttribute( 'identifiedHighlight' ) && value.item.getAttribute( 'identifiedHighlight' ) === this.value;
+					// };
+
+					// const highlightStart = position.getLastMatchingPosition( isSameHighlight, { direction: 'backward' } );
+					// const highlightEnd = position.getLastMatchingPosition( isSameHighlight );
+
+					// const highlightRange = writer.createRange( highlightStart, highlightEnd );
+
+
+
+				}
+			}
 
 			for (const range of ranges) {
 				writer.setAttribute('identifiedHighlight', id, range);
