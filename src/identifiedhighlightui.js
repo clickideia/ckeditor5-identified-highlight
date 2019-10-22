@@ -46,7 +46,7 @@ export default class IdentifiedHighlightUI extends Plugin {
 		});
 
 		editor.ui.componentFactory.add('identifiedHighlight:remove', locale => {
-			const buttonView = newButtonView(locale);
+			const buttonView = new ButtonView(locale);
 
 			buttonView.set({
 				label: t("Remover destaque"),
