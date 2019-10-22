@@ -1,5 +1,6 @@
 import Plugin from '@ckeditor/ckeditor5-core/src/plugin';
 import IdentifiedHighlightCommand from './identifiedhighlightcommand';
+import RemoveHighlightCommand from './removehighlightcommand';
 import { createIdentifiedHighlightElement } from './utils';
 
 export default class IdentifiedHighlightEditing extends Plugin {
@@ -8,17 +9,17 @@ export default class IdentifiedHighlightEditing extends Plugin {
 	}
 
 	init() {
-		console.log( 'Workspace works fine' );
+		console.log('Workspace works fine');
 		this._defineSchema();
 		this._defineConverters();
-		this._addComand();
+		this._addComands();
 	}
 
 	_defineSchema() {
 		const schema = this.editor.model.schema;
 
 		// Allow identified highlight attribute on text nodes.
-		schema.extend( '$text', { allowAttributes: 'identifiedHighlight' } );
+		schema.extend('$text', { allowAttributes: 'identifiedHighlight' });
 	}
 
 	_defineConverters() {
@@ -26,20 +27,20 @@ export default class IdentifiedHighlightEditing extends Plugin {
 		const conversion = editor.conversion;
 
 		conversion
-			.for( 'dataDowncast' )
-			.attributeToElement( {
+			.for('dataDowncast')
+			.attributeToElement({
 				model: 'identifiedHighlight',
 				view: createIdentifiedHighlightElement
-			} );
+			});
 
-		conversion.for( 'editingDowncast' ).attributeToElement( {
+		conversion.for('editingDowncast').attributeToElement({
 			model: 'identifiedHighlight',
-			view: ( id, writer ) => {
-				return createIdentifiedHighlightElement( id, writer );
+			view: (id, writer) => {
+				return createIdentifiedHighlightElement(id, writer);
 			}
-		} );
+		});
 
-		conversion.for( 'upcast' ).elementToAttribute( {
+		conversion.for('upcast').elementToAttribute({
 			view: {
 				name: 'marker',
 				attributes: {
@@ -48,17 +49,22 @@ export default class IdentifiedHighlightEditing extends Plugin {
 			},
 			model: {
 				key: 'identifiedHighlight',
-				value: viewElement => viewElement.getAttribute( 'id' )
+				value: viewElement => viewElement.getAttribute('id')
 			}
-		} );
+		});
 	}
 
-	_addComand() {
+	_addComands() {
 		const editor = this.editor;
 
 		editor.commands.add(
 			'identifiedHighlight',
-			new IdentifiedHighlightCommand( editor )
+			new IdentifiedHighlightCommand(editor)
+		);
+
+		editor.commands.add(
+			'identifiedHighlight:remove',
+			new RemoveHighlightCommand(editor)
 		);
 	}
 }
