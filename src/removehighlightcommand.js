@@ -10,13 +10,13 @@ export default class RemoveHighlightCommand extends Command {
 		const model = editor.model;
 		const root = model.document.getRoot();
 
-		const fpos = model.createPositionAt(root, [0]);
+		const fpos = model.createPositionAt(root, 0);
 
 		const walker = new TreeWalker({ startPosition: fpos });
 		console.log(walker);
 
 		model.change(writer => {
-			const firstPosition = writer.createPositionAt(root, [0]);
+			const firstPosition = writer.createPositionAt(root, 0);
 
 			const highlightStart = firstPosition.getLastMatchingPosition(value => value.item.getAttribute("identifiedHighlight") !== highlightId);
 			const highlightEnd = highlightEnd.getLastMatchingPosition(value => value.item.getAttribute("identifiedHighlight") === highlightId);
