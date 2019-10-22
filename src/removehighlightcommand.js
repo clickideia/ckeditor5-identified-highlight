@@ -1,8 +1,7 @@
 import Command from '@ckeditor/ckeditor5-core/src/command';
 
 export default class RemoveHighlightCommand extends Command {
-	constructor() {
-		super();
+	refresh() {
 		this.isEnabled = true;
 	}
 
