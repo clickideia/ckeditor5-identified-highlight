@@ -17,7 +17,8 @@ export default class RemoveHighlightCommand extends Command {
 		console.log( walker );
 
 		model.change( writer => {
-			const firstPosition = writer.createPositionAt( root.getChild(0), 0 );
+			console.log(writer);
+			const firstPosition = model.createPositionAt( root, 0 );
 
 			const highlightStart = firstPosition.getLastMatchingPosition( value => value.item.getAttribute( 'identifiedHighlight' ) !== highlightId );
 			const highlightEnd = highlightEnd.getLastMatchingPosition( value => value.item.getAttribute( 'identifiedHighlight' ) === highlightId );
