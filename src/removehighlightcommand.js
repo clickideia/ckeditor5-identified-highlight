@@ -2,7 +2,8 @@ import Command from '@ckeditor/ckeditor5-core/src/command';
 import TreeWalker from '@ckeditor/ckeditor5-engine/src/model/treewalker';
 
 export default class RemoveHighlightCommand extends Command {
-	refresh() {
+	constructor() {
+		super();
 		this.isEnabled = true;
 	}
 
@@ -11,24 +12,17 @@ export default class RemoveHighlightCommand extends Command {
 		const model = editor.model;
 		const root = model.document.getRoot();
 
-		const fpos = model.createPositionAt( root, 0 );
-
-		const walker = new TreeWalker( { startPosition: fpos } );
-		console.log( walker );
-
 		model.change( writer => {
-			console.log("writer", writer);
-			const firstPosition = writer.createPositionAt( root, 0 );
+			const firstPosition = model.createPositionAt( root, 0 );
+			const walker = new TreeWalker( { startPosition: firstPosition } );
 
-			const highlightStart = firstPosition.getLastMatchingPosition( value => value.item.getAttribute( 'identifiedHighlight' ) !== highlightId );
-			const highlightEnd = highlightStart.getLastMatchingPosition( value => value.item.getAttribute( 'identifiedHighlight' ) === highlightId );
-			console.log("start", highlightStart);
-			console.log("end", highlightEnd);
+			walker.skip(value => value.item.getAttribute("identifiedHighlight") !== highlightId)
+			const highlightStart = walker.position;
+			walker.skip(value => value.item.getAttribute("identifiedHighlight") === highlightId)
+			const highlightEnd = walker.position;
 
 			const highlightRange = writer.createRange( highlightStart, highlightEnd );
-			console.log("range", highlightRange);
 			const highlightSelection = writer.createSelection( highlightRange );
-			console.log("selection", highlightSelection);
 
 			if ( !highlightSelection.isCollapsed ) {
 				highlightSelection.removeAttribute( highlightId );
