@@ -19,6 +19,10 @@ export default class RemoveHighlightCommand extends Command {
 			const highlightStart = walker.position;
 			walker.skip(value => value.item.getAttribute("identifiedHighlight") === highlightId)
 			const highlightEnd = walker.position;
+			console.log("editor", editor)
+			console.log("model", model)
+			console.log("highlightStart", highlightStart)
+			console.log("highlightEnd", highlightEnd)
 
 			const highlightRange = writer.createRange( highlightStart, highlightEnd );
 			const highlightSelection = writer.createSelection( highlightRange );
