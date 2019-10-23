@@ -21,7 +21,7 @@ export default class RemoveHighlightCommand extends Command {
 			const firstPosition = model.createPositionAt( root, 0 );
 
 			const highlightStart = firstPosition.getLastMatchingPosition( value => value.item.getAttribute( 'identifiedHighlight' ) !== highlightId );
-			const highlightEnd = highlightEnd.getLastMatchingPosition( value => value.item.getAttribute( 'identifiedHighlight' ) === highlightId );
+			const highlightEnd = highlightStart.getLastMatchingPosition( value => value.item.getAttribute( 'identifiedHighlight' ) === highlightId );
 
 			const highlightRange = writer.createRange( highlightStart, highlightEnd );
 			const highlightSelection = writer.createSelection( highlightRange );
