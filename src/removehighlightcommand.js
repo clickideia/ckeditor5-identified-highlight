@@ -2,8 +2,7 @@ import Command from '@ckeditor/ckeditor5-core/src/command';
 import TreeWalker from '@ckeditor/ckeditor5-engine/src/model/treewalker';
 
 export default class RemoveHighlightCommand extends Command {
-	constructor() {
-		super();
+	refresh() {
 		this.isEnabled = true;
 	}
 
