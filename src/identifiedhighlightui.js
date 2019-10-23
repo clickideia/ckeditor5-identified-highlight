@@ -33,7 +33,7 @@ export default class IdentifiedHighlightUI extends Plugin {
 			} );
 
 			buttonView.on( 'execute', () => {
-				editor.execute( 'identifiedHighlight' );
+				editor.execute( 'identifiedHighlight:add' );
 				editor.editing.view.focus();
 			} );
 
