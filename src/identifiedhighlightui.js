@@ -19,11 +19,11 @@ export default class IdentifiedHighlightUI extends Plugin {
 
 	_addButton( options ) {
 		const editor = this.editor;
-		const command = this.editor.commands.get( 'identifiedHighlight' );
 		const t = editor.t;
 
 		editor.ui.componentFactory.add( 'identifiedHighlight:add', locale => {
 			const buttonView = new ButtonView( locale );
+			const command = editor.commands.get( 'identifiedHighlight:add' );
 
 			buttonView.set( {
 				label: t( options.label ),
@@ -46,6 +46,7 @@ export default class IdentifiedHighlightUI extends Plugin {
 
 		editor.ui.componentFactory.add( 'identifiedHighlight:remove', locale => {
 			const buttonView = new ButtonView( locale );
+			const command = editor.commands.get( 'identifiedHighlight:remove' );
 
 			buttonView.set( {
 				label: t( 'Remover destaque' ),
@@ -53,7 +54,7 @@ export default class IdentifiedHighlightUI extends Plugin {
 			} );
 
 			buttonView.on( 'execute', () => {
-				editor.execute( 'identifiedHighlight' );
+				editor.execute( 'identifiedHighlight:remove', { highlightId: window.highId } );
 			} );
 
 			buttonView.bind( 'isEnabled' ).to( command, 'isEnabled' );
