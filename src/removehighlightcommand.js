@@ -17,14 +17,18 @@ export default class RemoveHighlightCommand extends Command {
 		console.log( walker );
 
 		model.change( writer => {
-			console.log(writer);
-			const firstPosition = model.createPositionAt( root, 0 );
+			console.log("writer", writer);
+			const firstPosition = writer.createPositionAt( root, 0 );
 
 			const highlightStart = firstPosition.getLastMatchingPosition( value => value.item.getAttribute( 'identifiedHighlight' ) !== highlightId );
 			const highlightEnd = highlightStart.getLastMatchingPosition( value => value.item.getAttribute( 'identifiedHighlight' ) === highlightId );
+			console.log("start", highlightStart);
+			console.log("end", highlightEnd);
 
 			const highlightRange = writer.createRange( highlightStart, highlightEnd );
+			console.log("range", highlightRange);
 			const highlightSelection = writer.createSelection( highlightRange );
+			console.log("selection", highlightSelection);
 
 			if ( !highlightSelection.isCollapsed ) {
 				highlightSelection.removeAttribute( highlightId );
