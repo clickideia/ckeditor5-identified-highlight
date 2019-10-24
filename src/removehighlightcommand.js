@@ -14,20 +14,24 @@ export default class RemoveHighlightCommand extends Command {
 		model.change( writer => {
 			const firstPosition = model.createPositionAt( root, 0 );
 			const walker = new TreeWalker( { startPosition: firstPosition } );
-			console.log(walker);
-			// while(walker.is)
 
-			// walker.skip(value => value.item.getAttribute("identifiedHighlight") !== highlightId)
-			// const highlightStart = walker.position;
-			// walker.skip(value => value.item.getAttribute("identifiedHighlight") === highlightId)
-			// const highlightEnd = walker.position;
-			// console.log("editor", editor)
-			// console.log("model", model)
-			// console.log("highlightStart", highlightStart)
-			// console.log("highlightEnd", highlightEnd)
+			ranges = [];
+			while(!walker.next().done) {
+				walker.skip(value => value.item.getAttribute("identifiedHighlight") !== highlightId)
+				const highlightStart = walker.position;
+				walker.skip(value => value.item.getAttribute("identifiedHighlight") === highlightId)
+				const highlightEnd = walker.position;
+				// console.log("editor", editor)
+				// console.log("model", model)
+				// console.log("highlightStart", highlightStart)
+				// console.log("highlightEnd", highlightEnd)
 
-			// const highlightRange = writer.createRange( highlightStart, highlightEnd );
-			// const highlightSelection = writer.createSelection( highlightRange );
+				const highlightRange = writer.createRange( highlightStart, highlightEnd );
+				ranges.push(highlightRange);
+				// const highlightSelection = writer.createSelection( highlightRange );
+			}
+			console.log(ranges);
+
 
 			// if ( !highlightSelection.isCollapsed ) {
 			// 	highlightSelection.removeAttribute( highlightId );
