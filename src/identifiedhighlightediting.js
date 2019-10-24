@@ -9,7 +9,6 @@ export default class IdentifiedHighlightEditing extends Plugin {
 	}
 
 	init() {
-		console.log( 'Workspace works fine' );
 		this._defineSchema();
 		this._defineConverters();
 		this._addComands();

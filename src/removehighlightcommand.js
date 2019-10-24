@@ -16,20 +16,20 @@ export default class RemoveHighlightCommand extends Command {
 			const walker = new TreeWalker( { startPosition: firstPosition } );
 
 			const ranges = [];
-			while(!walker.next().done) {
-				walker.skip(value => value.item.getAttribute("identifiedHighlight") !== highlightId)
+			while ( !walker.next().done ) {
+				walker.skip( value => value.item.getAttribute( 'identifiedHighlight' ) !== highlightId );
 				const highlightStart = walker.position;
-				walker.skip(value => value.item.getAttribute("identifiedHighlight") === highlightId)
+				walker.skip( value => value.item.getAttribute( 'identifiedHighlight' ) === highlightId );
 				const highlightEnd = walker.position;
 
 				const highlightRange = writer.createRange( highlightStart, highlightEnd );
-				if(!highlightRange.isCollapsed) {
-					ranges.push(highlightRange);
+				if ( !highlightRange.isCollapsed ) {
+					ranges.push( highlightRange );
 				}
 			}
 
-			for(const range of ranges) {
-				writer.removeAttribute("identifiedHighlight", range);
+			for ( const range of ranges ) {
+				writer.removeAttribute( 'identifiedHighlight', range );
 			}
 		} );
 	}

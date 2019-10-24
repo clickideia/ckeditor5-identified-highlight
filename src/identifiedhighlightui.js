@@ -43,23 +43,5 @@ export default class IdentifiedHighlightUI extends Plugin {
 
 			return buttonView;
 		} );
-
-		editor.ui.componentFactory.add( 'identifiedHighlight:remove', locale => {
-			const buttonView = new ButtonView( locale );
-			const command = editor.commands.get( 'identifiedHighlight:remove' );
-
-			buttonView.set( {
-				label: t( 'Remover destaque' ),
-				withText: true
-			} );
-
-			buttonView.on( 'execute', () => {
-				editor.execute( 'identifiedHighlight:remove', { highlightId: window.highId } );
-			} );
-
-			buttonView.bind( 'isEnabled' ).to( command, 'isEnabled' );
-
-			return buttonView;
-		} );
 	}
 }
