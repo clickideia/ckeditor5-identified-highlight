@@ -21,21 +21,16 @@ export default class RemoveHighlightCommand extends Command {
 				const highlightStart = walker.position;
 				walker.skip(value => value.item.getAttribute("identifiedHighlight") === highlightId)
 				const highlightEnd = walker.position;
-				// console.log("editor", editor)
-				// console.log("model", model)
-				// console.log("highlightStart", highlightStart)
-				// console.log("highlightEnd", highlightEnd)
 
 				const highlightRange = writer.createRange( highlightStart, highlightEnd );
-				ranges.push(highlightRange);
-				// const highlightSelection = writer.createSelection( highlightRange );
+				if(!highlightRange.isCollapsed) {
+					ranges.push(highlightRange);
+				}
 			}
-			console.log(ranges);
 
-
-			// if ( !highlightSelection.isCollapsed ) {
-			// 	highlightSelection.removeAttribute( highlightId );
-			// }
+			for(const range of ranges) {
+				writer.removeAttribute("identifiedHighlight", range);
+			}
 		} );
 	}
 }
