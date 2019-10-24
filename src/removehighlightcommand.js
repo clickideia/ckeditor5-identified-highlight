@@ -15,7 +15,7 @@ export default class RemoveHighlightCommand extends Command {
 			const firstPosition = model.createPositionAt( root, 0 );
 			const walker = new TreeWalker( { startPosition: firstPosition } );
 
-			ranges = [];
+			const ranges = [];
 			while(!walker.next().done) {
 				walker.skip(value => value.item.getAttribute("identifiedHighlight") !== highlightId)
 				const highlightStart = walker.position;
