@@ -17,8 +17,9 @@ export default class IdentifiedHighlightEditing extends Plugin {
 	_defineSchema() {
 		const schema = this.editor.model.schema;
 
-		// Allow identified highlight attribute on text nodes.
+		// Allow identified highlight attribute on text and block nodes.
 		schema.extend( '$text', { allowAttributes: 'identifiedHighlight' } );
+		schema.extend( '$block', { allowAttributes: 'identifiedHighlight' } );
 	}
 
 	_defineConverters() {
