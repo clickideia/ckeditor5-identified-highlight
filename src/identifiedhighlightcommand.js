@@ -2,40 +2,42 @@ import Command from '@ckeditor/ckeditor5-core/src/command';
 
 export default class IdentifiedHighlightCommand extends Command {
 	refresh() {
-		const model = this.editor.model;
+		const editor = this.editor;
+		const model = editor.model;
 		const selection = model.document.selection;
+		const options = editor.config.get( 'identifiedHighlight.options' ) || {};
 
-		this.value = selection.getAttribute( 'identifiedHighlight' );
+		const newValue = selection.getAttribute( 'identifiedHighlight' );
+		if ( this.value !== newValue ) {
+			this.value = newValue;
+			if ( options.onHighlightChange ) {
+				options.onHighlightChange( newValue );
+			}
+		}
 
 		this.isEnabled = model.schema.checkAttributeInSelection(
 			selection,
 			'identifiedHighlight'
-		);
+		) && !selection.isCollapsed;
 	}
 
 	execute() {
 		const editor = this.editor;
 		const model = editor.model;
 		const selection = model.document.selection;
-		const options = editor.config.get( 'identifiedHighlight.options' );
-		const id = options.generateId();
-		const returnObj = {
-			id,
-			success: false
-		};
 
 		model.change( writer => {
+			const options = editor.config.get( 'identifiedHighlight.options' );
+			const id = options.generateId();
 			const ranges = model.schema.getValidRanges(
 				selection.getRanges(),
 				'identifiedHighlight'
 			);
 
 			for ( const range of ranges ) {
-				returnObj.success = true;
 				writer.setAttribute( 'identifiedHighlight', id, range );
+				options.onHighlightAdd( id );
 			}
 		} );
-
-		return returnObj;
 	}
 }

@@ -48,7 +48,7 @@ export default class IdentifiedHighlightEditing extends Plugin {
 			},
 			model: {
 				key: 'identifiedHighlight',
-				value: viewElement => viewElement.getAttribute( 'id' )
+				value: viewElement => viewElement.getAttribute( 'data-highlight-id' )
 			}
 		} );
 	}
