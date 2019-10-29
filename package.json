@@ -1,6 +1,6 @@
 {
 	"name": "ckeditor5-identified-highlight",
-	"version": "0.1.51",
+	"version": "0.1.52",
 	"description": "Highlight with unique ids feature for CKEditor 5.",
 	"keywords": [
 		"ckeditor",
