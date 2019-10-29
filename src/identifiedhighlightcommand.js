@@ -1,17 +1,17 @@
-/* global console */
-
 import Command from '@ckeditor/ckeditor5-core/src/command';
-import FocusTracker from '@ckeditor/ckeditor5-utils/src/focustracker';
 
 export default class IdentifiedHighlightCommand extends Command {
 	constructor( editor ) {
 		super( editor );
 
-		const model = editor.model;
-		const root = model.document.getRoot();
+		const options = editor.config.get( 'identifiedHighlight.options' ) || {};
+		const document = editor.editing.view.document;
 
-		this.focusTracker = new FocusTracker();
-		this.focusTracker.add( root );
+		this.listenTo( document, 'change:isFocused', ( _evt, _name, isFocused, wasFocused ) => {
+			if ( options.onHighlightChange && isFocused !== wasFocused ) {
+				options.onHighlightChange( isFocused ? this.value : undefined );
+			}
+		} );
 	}
 
 	refresh() {
@@ -19,8 +19,6 @@ export default class IdentifiedHighlightCommand extends Command {
 		const model = editor.model;
 		const selection = model.document.selection;
 		const options = editor.config.get( 'identifiedHighlight.options' ) || {};
-
-		console.log( 'root focused', this.focusTracker, this.focusTracker.isFocused );
 
 		const newValue = selection.getAttribute( 'identifiedHighlight' );
 		if ( this.value !== newValue ) {
