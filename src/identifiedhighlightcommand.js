@@ -6,6 +6,9 @@ export default class IdentifiedHighlightCommand extends Command {
 		const model = editor.model;
 		const selection = model.document.selection;
 		const options = editor.config.get( 'identifiedHighlight.options' ) || {};
+		const root = model.document.getRoot();
+
+		console.log( 'root focused', root.isFocused );
 
 		const newValue = selection.getAttribute( 'identifiedHighlight' );
 		if ( this.value !== newValue ) {
