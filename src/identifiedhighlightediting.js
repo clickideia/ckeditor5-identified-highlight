@@ -42,7 +42,7 @@ export default class IdentifiedHighlightEditing extends Plugin {
 
 		conversion.for( 'upcast' ).elementToAttribute( {
 			view: {
-				name: 'marker',
+				name: 'mark',
 				attributes: {
 					'data-highlight-id': true
 				}
