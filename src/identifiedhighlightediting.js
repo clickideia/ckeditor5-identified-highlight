@@ -49,7 +49,12 @@ export default class IdentifiedHighlightEditing extends Plugin {
 			},
 			model: {
 				key: 'identifiedHighlight',
-				value: viewElement => viewElement.getAttribute( 'data-highlight-id' )
+				value: viewElement => {
+					const id = viewElement.getAttribute( 'data-highlight-id' );
+					console.log( viewElement );
+					console.log( 'upcast id value:', id );
+					return id;
+				}
 			}
 		} );
 	}
