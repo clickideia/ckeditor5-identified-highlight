@@ -32,6 +32,9 @@ export default class IdentifiedHighlightCommand extends Command {
 
 			const startValue = start.getAttribute( 'identifiedHighlight' );
 			const endValue = end.getAttribute( 'identifiedHighlight' );
+
+			console.log( start, end, startValue, endValue );
+
 			if ( startValue === endValue ) {
 				newValue = startValue;
 			}
