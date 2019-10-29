@@ -1,3 +1,5 @@
+/* global console */
+
 import Command from '@ckeditor/ckeditor5-core/src/command';
 
 export default class IdentifiedHighlightCommand extends Command {
@@ -24,8 +26,10 @@ export default class IdentifiedHighlightCommand extends Command {
 		const options = editor.config.get( 'identifiedHighlight.options' ) || {};
 
 		let newValue = undefined;
+		console.log( selection );
 		if ( selection.isCollapsed ) {
 			newValue = selection.getAttribute( 'identifiedHighlight' );
+			console.log( 'collapsed', newValue );
 		} else {
 			const start = model.createSelection( selection.getFirstPosition() );
 			const end = model.createSelection( selection.getLastPosition() );
@@ -33,7 +37,7 @@ export default class IdentifiedHighlightCommand extends Command {
 			const startValue = start.getAttribute( 'identifiedHighlight' );
 			const endValue = end.getAttribute( 'identifiedHighlight' );
 
-			console.log( start, end, startValue, endValue );
+			console.log( 'not collapsed', start, end, startValue, endValue );
 
 			if ( startValue === endValue ) {
 				newValue = startValue;
