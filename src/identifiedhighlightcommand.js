@@ -23,7 +23,19 @@ export default class IdentifiedHighlightCommand extends Command {
 		const selection = model.document.selection;
 		const options = editor.config.get( 'identifiedHighlight.options' ) || {};
 
-		const newValue = selection.getAttribute( 'identifiedHighlight' );
+		let newValue = undefined;
+		if ( selection.isCollapsed ) {
+			newValue = selection.getAttribute( 'identifiedHighlight' );
+		} else {
+			const start = model.createSelection( selection.getFirstPosition() );
+			const end = model.createSelection( selection.getLastPosition() );
+
+			const startValue = start.getAttribute( 'identifiedHighlight' );
+			const endValue = end.getAttribute( 'identifiedHighlight' );
+			if ( startValue === endValue ) {
+				newValue = startValue;
+			}
+		}
 		if ( this.value !== newValue ) {
 			this.value = newValue;
 			if ( options.onHighlightChange ) {
