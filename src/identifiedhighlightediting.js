@@ -1,6 +1,7 @@
 import Plugin from '@ckeditor/ckeditor5-core/src/plugin';
 import IdentifiedHighlightCommand from './identifiedhighlightcommand';
 import RemoveHighlightCommand from './removehighlightcommand';
+import ListHighlighsCommand from './listhighlightscommand';
 import { createIdentifiedHighlightElement } from './utils';
 
 export default class IdentifiedHighlightEditing extends Plugin {
@@ -65,6 +66,11 @@ export default class IdentifiedHighlightEditing extends Plugin {
 		editor.commands.add(
 			'identifiedHighlight:remove',
 			new RemoveHighlightCommand( editor )
+		);
+
+		editor.commands.add(
+			'identifiedHighlight:list',
+			new ListHighlighsCommand( editor )
 		);
 	}
 }
