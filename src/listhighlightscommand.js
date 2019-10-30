@@ -1,5 +1,3 @@
-/* global console */
-
 import Command from '@ckeditor/ckeditor5-core/src/command';
 import TreeWalker from '@ckeditor/ckeditor5-engine/src/model/treewalker';
 import { compareArrays } from './utils';
@@ -26,11 +24,9 @@ export default class ListHighlightsCommand extends Command {
 			if ( id && !highlights.includes( id ) ) {
 				highlights.push( id );
 			}
-			console.log( '-', id );
 			return true;
 		} );
 
-		console.log( options, options.listHighlights, this.value, highlights );
 		if ( !compareArrays( this.value, highlights ) ) {
 			this.value = highlights;
 			if ( options.listHighlights ) {
