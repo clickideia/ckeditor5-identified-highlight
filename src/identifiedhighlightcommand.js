@@ -6,24 +6,25 @@ export default class IdentifiedHighlightCommand extends Command {
 	constructor( editor ) {
 		super( editor );
 
-		const options = editor.config.get( 'identifiedHighlight.options' ) || {};
+		const options = editor.config.get( 'identifiedHighlight.options' );
 		const document = editor.editing.view.document;
 
-		this.listenTo( document, 'change:isFocused', ( _evt, _name, isFocused, wasFocused ) => {
-			if ( options.onHighlightChange && isFocused !== wasFocused ) {
-				if ( !isFocused ) {
-					this.value = undefined;
-				}
-				options.onHighlightChange( this.value );
+		this.listenTo( document, 'change:isFocused', ( _evt, _name, isFocused ) => {
+			if ( !isFocused ) {
+				this.value = undefined;
 			}
 		} );
 
-		this.listenTo( this, 'change:value', ( evt, name, is, was ) => {
-			console.log( 'listen value', evt, name, is, was );
+		this.listenTo( this, 'change:value', ( _evt, _name, value ) => {
+			if ( options.onHighlightChange ) {
+				options.onHighlightChange( value );
+			}
 		} );
 
-		this.listenTo( this, 'change:isEnabled', ( evt, name, is, was ) => {
-			console.log( 'listen enabled', evt, name, is, was );
+		this.listenTo( this, 'change:isEnabled', ( _evt, _name, isEnabled ) => {
+			if ( options.onEnabledChange ) {
+				options.onEnabledChange( isEnabled );
+			}
 		} );
 	}
 
@@ -31,7 +32,6 @@ export default class IdentifiedHighlightCommand extends Command {
 		const editor = this.editor;
 		const model = editor.model;
 		const selection = model.document.selection;
-		const options = editor.config.get( 'identifiedHighlight.options' ) || {};
 
 		let newValue = undefined;
 		console.log( selection );
@@ -53,11 +53,12 @@ export default class IdentifiedHighlightCommand extends Command {
 		}
 		if ( this.value !== newValue ) {
 			this.value = newValue;
-			if ( options.onHighlightChange ) {
-				options.onHighlightChange( newValue );
-			}
 		}
 
+		console.log( 'isEnabledCheck', model.schema.checkAttributeInSelection(
+			selection,
+			'identifiedHighlight'
+		), !selection.isCollapsed );
 		this.isEnabled = model.schema.checkAttributeInSelection(
 			selection,
 			'identifiedHighlight'
