@@ -17,6 +17,14 @@ export default class IdentifiedHighlightCommand extends Command {
 				options.onHighlightChange( this.value );
 			}
 		} );
+
+		this.listenTo( this, 'change:value', ( evt, name, is, was ) => {
+			console.log( 'listen value', evt, name, is, was );
+		} );
+
+		this.listenTo( this, 'change:isEnabled', ( evt, name, is, was ) => {
+			console.log( 'listen enabled', evt, name, is, was );
+		} );
 	}
 
 	refresh() {
