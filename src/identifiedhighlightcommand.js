@@ -4,7 +4,7 @@ export default class IdentifiedHighlightCommand extends Command {
 	constructor( editor ) {
 		super( editor );
 
-		const options = editor.config.get( 'identifiedHighlight.options' );
+		const options = editor.config.get( 'identifiedHighlight.options' ) || {};
 		const document = editor.editing.view.document;
 
 		this.listenTo( document, 'change:isFocused', ( _evt, _name, isFocused ) => {
@@ -69,7 +69,7 @@ export default class IdentifiedHighlightCommand extends Command {
 		const selection = model.document.selection;
 
 		model.change( writer => {
-			const options = editor.config.get( 'identifiedHighlight.options' );
+			const options = editor.config.get( 'identifiedHighlight.options' ) || {};
 			const id = options.generateId();
 			const ranges = model.schema.getValidRanges(
 				selection.getRanges(),

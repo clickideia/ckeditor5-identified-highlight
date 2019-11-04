@@ -12,7 +12,7 @@ export default class IdentifiedHighlightUI extends Plugin {
 	}
 
 	init() {
-		const options = this.editor.config.get( 'identifiedHighlight.options' );
+		const options = this.editor.config.get( 'identifiedHighlight.options' ) || {};
 
 		this._addButton( options );
 	}

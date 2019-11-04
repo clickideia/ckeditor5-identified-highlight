@@ -14,7 +14,7 @@ export default class RemoveHighlightCommand extends Command {
 		model.change( writer => {
 			const firstPosition = model.createPositionAt( root, 0 );
 			const walker = new TreeWalker( { startPosition: firstPosition } );
-			const options = editor.config.get( 'identifiedHighlight.options' );
+			const options = editor.config.get( 'identifiedHighlight.options' ) || {};
 
 			const ranges = [];
 			while ( !walker.next().done ) {
