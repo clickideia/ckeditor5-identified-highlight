@@ -83,8 +83,8 @@ export default class IdentifiedHighlightCommand extends Command {
 				rangesArray.push( range );
 			}
 			console.log( '>>>> RANGES ARRAY <<<<', rangesArray );
-			for ( const range of ranges ) {
-				console.log( '    range:', rangesArray );
+			for ( const range of rangesArray ) {
+				console.log( '    range:', range );
 				writer.setAttribute( 'identifiedHighlight', id, range );
 				options.onHighlightAdd( id );
 			}
