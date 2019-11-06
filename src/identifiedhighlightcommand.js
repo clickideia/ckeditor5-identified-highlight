@@ -1,3 +1,4 @@
+/* global console */
 import Command from '@ckeditor/ckeditor5-core/src/command';
 
 export default class IdentifiedHighlightCommand extends Command {
@@ -76,7 +77,9 @@ export default class IdentifiedHighlightCommand extends Command {
 				'identifiedHighlight'
 			);
 
+			console.log( '> RANGES <', ranges );
 			for ( const range of ranges ) {
+				console.log( '    range:', range );
 				writer.setAttribute( 'identifiedHighlight', id, range );
 				options.onHighlightAdd( id );
 			}
