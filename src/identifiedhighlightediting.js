@@ -27,14 +27,14 @@ export default class IdentifiedHighlightEditing extends Plugin {
 		const editor = this.editor;
 		const conversion = editor.conversion;
 
-		conversion
-			.for( 'dataDowncast' )
-			.attributeToElement( {
-				model: 'identifiedHighlight',
-				view: createIdentifiedHighlightElement
-			} );
+		// conversion
+		// 	.for( 'dataDowncast' )
+		// 	.attributeToElement( {
+		// 		model: 'identifiedHighlight',
+		// 		view: createIdentifiedHighlightElement
+		// 	} );
 
-		conversion.for( 'editingDowncast' ).attributeToElement( {
+		conversion.for( 'downcast' ).attributeToElement( {
 			model: 'identifiedHighlight',
 			view: ( id, writer ) => {
 				return createIdentifiedHighlightElement( id, writer );
