@@ -38,7 +38,7 @@ export default class IdentifiedHighlightCommand extends Command {
 			'identifiedHighlight'
 		);
 		console.log( 'VALID RANGES' );
-		for ( const range in validRanges ) {
+		for ( const range of validRanges ) {
 			console.log( range );
 		}
 		let newValue = undefined;
