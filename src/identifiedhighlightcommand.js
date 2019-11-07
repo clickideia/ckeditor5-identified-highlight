@@ -54,10 +54,6 @@ export default class IdentifiedHighlightCommand extends Command {
 			this.value = newValue;
 		}
 
-		// console.log( 'isEnabledCheck', model.schema.checkAttributeInSelection(
-		// 	selection,
-		// 	'identifiedHighlight'
-		// ), !selection.isCollapsed );
 		this.isEnabled = model.schema.checkAttributeInSelection(
 			selection,
 			'identifiedHighlight'
@@ -77,16 +73,12 @@ export default class IdentifiedHighlightCommand extends Command {
 				'identifiedHighlight'
 			);
 
-			console.log( '> RANGES <', ranges );
-			const rangesArray = [];
 			for ( const range of ranges ) {
-				rangesArray.push( range );
-			}
-			console.log( '>>>> RANGES ARRAY <<<<', rangesArray );
-			for ( const range of rangesArray ) {
-				console.log( '    range:', range );
 				writer.setAttribute( 'identifiedHighlight', id, range );
 				options.onHighlightAdd( id );
+				if ( this.value !== id ) {
+					this.value = id;
+				}
 			}
 		} );
 	}
