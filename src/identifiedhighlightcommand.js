@@ -33,7 +33,10 @@ export default class IdentifiedHighlightCommand extends Command {
 		const editor = this.editor;
 		const model = editor.model;
 		const selection = model.document.selection;
-
+		console.log( 'VALID RANGES', model.schema.getValidRanges(
+			selection.getRanges(),
+			'identifiedHighlight'
+		) );
 		let newValue = undefined;
 		// console.log( selection );
 		if ( selection.isCollapsed ) {
