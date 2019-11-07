@@ -1,4 +1,3 @@
-/* global console */
 import Command from '@ckeditor/ckeditor5-core/src/command';
 
 export default class IdentifiedHighlightCommand extends Command {
@@ -33,14 +32,7 @@ export default class IdentifiedHighlightCommand extends Command {
 		const editor = this.editor;
 		const model = editor.model;
 		const selection = model.document.selection;
-		const validRanges = model.schema.getValidRanges(
-			selection.getRanges(),
-			'identifiedHighlight'
-		);
-		console.log( 'VALID RANGES' );
-		for ( const range of validRanges ) {
-			console.log( range );
-		}
+
 		let newValue = undefined;
 		// console.log( selection );
 		if ( selection.isCollapsed ) {
