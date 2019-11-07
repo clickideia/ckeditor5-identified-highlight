@@ -1,3 +1,4 @@
+/* global console */
 import Command from '@ckeditor/ckeditor5-core/src/command';
 
 export default class IdentifiedHighlightCommand extends Command {
@@ -33,6 +34,16 @@ export default class IdentifiedHighlightCommand extends Command {
 		const model = editor.model;
 		const selection = model.document.selection;
 
+		const validRanges = model.schema.getValidRanges(
+			selection.getRanges(),
+			'identifiedHighlight'
+		);
+		const ranges = [];
+		for ( const range of validRanges ) {
+			ranges.push( range );
+		}
+		this.isEnabled = ranges.length > 0;
+
 		let newValue = undefined;
 		// console.log( selection );
 		if ( selection.isCollapsed ) {
@@ -54,11 +65,6 @@ export default class IdentifiedHighlightCommand extends Command {
 		if ( this.value !== newValue ) {
 			this.value = newValue;
 		}
-
-		this.isEnabled = model.schema.checkAttributeInSelection(
-			selection,
-			'identifiedHighlight'
-		) && !selection.isCollapsed;
 	}
 
 	execute() {
