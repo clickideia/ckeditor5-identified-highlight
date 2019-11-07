@@ -1,4 +1,3 @@
-/* global console */
 import Command from '@ckeditor/ckeditor5-core/src/command';
 
 export default class IdentifiedHighlightCommand extends Command {
@@ -12,9 +11,13 @@ export default class IdentifiedHighlightCommand extends Command {
 			if ( !isFocused ) {
 				this.value = undefined;
 				this.isEnabled = false;
-			} else if ( options.onHighlightChange ) {
-				options.onHighlightChange( this.value );
-				options.onEnabledChange( this.isEnabled );
+			} else {
+				if ( options.onHighlightChange ) {
+					options.onHighlightChange( this.value );
+				}
+				if ( options.onEnabledChange ) {
+					options.onEnabledChange( this.isEnabled );
+				}
 			}
 		} );
 
@@ -43,11 +46,8 @@ export default class IdentifiedHighlightCommand extends Command {
 		const ranges = [];
 		for ( const range of validRanges ) {
 			ranges.push( range );
-			console.log( range );
 		}
-		console.log( ranges );
 		this.isEnabled = ranges.length > 0;
-		console.log( 'isEnabled', ranges.length > 0, this.isEnabled );
 
 		let newValue = undefined;
 		// console.log( selection );
