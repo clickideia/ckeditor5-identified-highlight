@@ -10,7 +10,6 @@ export default class IdentifiedHighlightCommand extends Command {
 		this.listenTo( document, 'change:isFocused', ( _evt, _name, isFocused ) => {
 			if ( !isFocused ) {
 				this.value = undefined;
-				this.isEnabled = false;
 			} else {
 				if ( options.onHighlightChange ) {
 					options.onHighlightChange( this.value );
