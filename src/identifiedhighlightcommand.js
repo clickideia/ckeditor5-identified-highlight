@@ -41,7 +41,9 @@ export default class IdentifiedHighlightCommand extends Command {
 		const ranges = [];
 		for ( const range of validRanges ) {
 			ranges.push( range );
+			console.log( range );
 		}
+		console.log( ranges );
 		this.isEnabled = ranges.length > 0;
 
 		let newValue = undefined;
